@@ -1,0 +1,4 @@
+CREATE TABLE photo (
+    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    url_photo VARCHAR(200)
+);

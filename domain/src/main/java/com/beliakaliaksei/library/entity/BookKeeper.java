@@ -26,11 +26,11 @@ public class BookKeeper implements Serializable {
     @Column(name = "return_date")
     private Date returnDate;
 
-    @OneToOne(mappedBy = "book_keeper")
-    @Column(name="book")
+    @OneToOne
+    @JoinColumn(name = "book_id")
     private Book book;
 
-    @OneToOne(mappedBy = "book_keeper")
-    @Column(name="reader")
+    @OneToOne
+    @JoinColumn(name = "reader_id")
     private Reader reader;
 }

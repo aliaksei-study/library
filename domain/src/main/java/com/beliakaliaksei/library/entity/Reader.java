@@ -24,7 +24,7 @@ public class Reader extends Human implements Serializable {
     @Column(name = "phone")
     private String phone;
 
-    @OneToOne(mappedBy = "reader", cascade = CascadeType.ALL)
-    @Column(name = "photo_id")
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "photo_id")
     private Photo photo;
 }

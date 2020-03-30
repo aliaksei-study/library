@@ -24,8 +24,8 @@ public class Publisher implements Serializable {
     @Column(name = "country_id")
     private Country country;
 
-    @OneToOne(mappedBy = "publisher", cascade = CascadeType.ALL)
-    @Column(name = "address_id")
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "address_id")
     private Address address;
 
     @Column(name = "postcode")

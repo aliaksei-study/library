@@ -21,8 +21,8 @@ public class Cover implements Serializable {
     @Column(name = "id")
     private Long id;
 
-    @OneToMany(mappedBy = "cover", cascade = CascadeType.ALL)
-    @Column(name = "photo_id")
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinTable(inverseJoinColumns = @JoinColumn(name = "photo_id"))
     private List<Photo> photo;
 
     @Column(name = "date_of_upload")
@@ -30,4 +30,7 @@ public class Cover implements Serializable {
 
     @Column(name = "note")
     private String note;
+
+    @ManyToOne
+    private Book book;
 }

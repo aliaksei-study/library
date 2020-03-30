@@ -14,7 +14,7 @@ import java.sql.Date;
 @EqualsAndHashCode
 @ToString
 @Entity
-@Table (name = "human")
+@Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Human implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

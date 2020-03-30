@@ -1,0 +1,123 @@
+databaseChangeLog:
+  - changeSet:
+      id: createTablePhoto
+      author: Aliaksei Beliak
+      changes:
+        - sqlFile:
+            dbms: mysql
+            encoding: utf8
+            endDelimiter: \n/\s*\n|\n/\s*$
+            path: /scripts/create-table-photo.sql
+            relativeToChangelogFile: true
+            splitStatements: true
+            stripComments: true
+  - changeSet:
+      id: createTableHuman
+      author: Aliaksei Beliak
+      changes:
+        - sqlFile:
+            dbms: mysql
+            encoding: utf8
+            path: /scripts/create-table-human.sql
+            relativeToChangelogFile: true
+            splitStatements: true
+            stripComments: true
+  - changeSet:
+        id: createTableAddress
+        author: Aliaksei Beliak
+        changes:
+            - sqlFile:
+                  dbms: mysql
+                  encoding: utf8
+                  path: /scripts/create-table-address.sql
+                  relativeToChangelogFile: true
+                  splitStatements: true
+                  stripComments: true
+  - changeSet:
+        id: createTableAuthor
+        author: Aliaksei Beliak
+        changes:
+            - sqlFile:
+                  dbms: mysql
+                  encoding: utf8
+                  path: /scripts/create-table-author.sql
+                  relativeToChangelogFile: true
+                  splitStatements: true
+                  stripComments: true
+  - changeSet:
+        id: createTableReader
+        author: Aliaksei Beliak
+        changes:
+            - sqlFile:
+                  dbms: mysql
+                  encoding: utf8
+                  path: /scripts/create-table-reader.sql
+                  relativeToChangelogFile: true
+                  splitStatements: true
+                  stripComments: true
+  - changeSet:
+        id: createTablePublisher
+        author: Aliaksei Beliak
+        changes:
+            - sqlFile:
+                  dbms: mysql
+                  encoding: utf8
+                  path: /scripts/create-table-publisher.sql
+                  relativeToChangelogFile: true
+                  splitStatements: true
+                  stripComments: true
+  - changeSet:
+        id: createTableEmailTemplates
+        author: Aliaksei Beliak
+        changes:
+            - sqlFile:
+                  dbms: mysql
+                  encoding: utf8
+                  path: /scripts/create-table-emailTemplates.sql
+                  relativeToChangelogFile: true
+                  splitStatements: true
+                  stripComments: true
+  - changeSet:
+      id: createTableCover
+      author: Aliaksei Beliak
+      changes:
+        - sqlFile:
+            dbms: mysql
+            encoding: utf8
+            path: /scripts/create-table-cover.sql
+            relativeToChangelogFile: true
+            splitStatements: true
+            stripComments: true
+  - changeSet:
+      id: createTableBook
+      author: Aliaksei Beliak
+      changes:
+        - sqlFile:
+            dbms: mysql
+            encoding: utf8
+            path: /scripts/create-table-book.sql
+            relativeToChangelogFile: true
+            splitStatements: true
+            stripComments: true
+  - changeSet:
+      id: createTableAuthorBook
+      author: Aliaksei Beliak
+      changes:
+        - sqlFile:
+            dbms: mysql
+            encoding: utf8
+            path: /scripts/create-table-authorBook.sql
+            relativeToChangelogFile: true
+            splitStatements: true
+            stripComments: true
+  - changeSet:
+      id: createTableBookKeeper
+      author: Aliaksei Beliak
+      changes:
+        - sqlFile:
+            dbms: mysql
+            encoding: utf8
+            path: /scripts/create-table-bookKeeper.sql
+            relativeToChangelogFile: true
+            splitStatements: true
+            stripComments: true

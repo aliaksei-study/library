@@ -25,8 +25,8 @@ public class Book implements Serializable {
     @Column(name = "title")
     private String title;
 
-    @OneToOne(mappedBy = "book", cascade = CascadeType.ALL)
-    @Column(name="publisher_id")
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "publisher_id")
     private Publisher publisher;
 
     @Column(name="publication_date")
@@ -41,11 +41,10 @@ public class Book implements Serializable {
 
     @ManyToMany
     @JoinTable (name = "author_book",
-                joinColumns = @JoinColumn(name = "book_id", referencedColumnName = "id"),
-                inverseJoinColumns = @JoinColumn(name = "author_id", referencedColumnName = "id"))
+                joinColumns = @JoinColumn(name = "book_id"),
+                inverseJoinColumns = @JoinColumn(name = "author_id"))
     private Set<Author> authors;
 
     @OneToMany(mappedBy = "book", cascade = CascadeType.ALL)
-    @Column(name = "cover_id")
     private Set<Cover> covers;
 }
