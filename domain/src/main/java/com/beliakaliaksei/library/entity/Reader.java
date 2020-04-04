@@ -13,13 +13,9 @@ import java.io.Serializable;
 @Entity
 @Table(name = "reader")
 public class Reader extends Human implements Serializable {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
-
-    @Column(name = "email")
-    private String email;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "usr_id")
+    private User user;
 
     @Column(name = "phone")
     private String phone;

@@ -6,6 +6,7 @@ import lombok.*;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -45,6 +46,6 @@ public class Book implements Serializable {
                 inverseJoinColumns = @JoinColumn(name = "author_id"))
     private Set<Author> authors;
 
-    @OneToMany(mappedBy = "book", cascade = CascadeType.ALL)
-    private Set<Cover> covers;
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "book")
+    private List<Cover> covers;
 }

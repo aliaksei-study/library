@@ -1,0 +1,7 @@
+CREATE TABLE usr
+(
+    id    BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    email VARCHAR(40),
+    passw VARCHAR(240),
+    role VARCHAR(10)
+);

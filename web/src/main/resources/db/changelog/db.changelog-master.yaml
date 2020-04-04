@@ -1,5 +1,16 @@
 databaseChangeLog:
   - changeSet:
+      id: createTableAddress
+      author: Aliaksei Beliak
+      changes:
+        - sqlFile:
+            dbms: mysql
+            encoding: utf8
+            path: /scripts/create-table-address.sql
+            relativeToChangelogFile: true
+            splitStatements: true
+            stripComments: true
+  - changeSet:
       id: createTablePhoto
       author: Aliaksei Beliak
       changes:
@@ -8,6 +19,18 @@ databaseChangeLog:
             encoding: utf8
             endDelimiter: \n/\s*\n|\n/\s*$
             path: /scripts/create-table-photo.sql
+            relativeToChangelogFile: true
+            splitStatements: true
+            stripComments: true
+  - changeSet:
+      id: createTableUser
+      author: Aliaksei Beliak
+      changes:
+        - sqlFile:
+            dbms: mysql
+            encoding: utf8
+            endDelimiter: \n/\s*\n|\n/\s*$
+            path: /scripts/create-table-user.sql
             relativeToChangelogFile: true
             splitStatements: true
             stripComments: true
@@ -22,17 +45,6 @@ databaseChangeLog:
             relativeToChangelogFile: true
             splitStatements: true
             stripComments: true
-  - changeSet:
-        id: createTableAddress
-        author: Aliaksei Beliak
-        changes:
-            - sqlFile:
-                  dbms: mysql
-                  encoding: utf8
-                  path: /scripts/create-table-address.sql
-                  relativeToChangelogFile: true
-                  splitStatements: true
-                  stripComments: true
   - changeSet:
         id: createTableAuthor
         author: Aliaksei Beliak
@@ -78,17 +90,6 @@ databaseChangeLog:
                   splitStatements: true
                   stripComments: true
   - changeSet:
-      id: createTableCover
-      author: Aliaksei Beliak
-      changes:
-        - sqlFile:
-            dbms: mysql
-            encoding: utf8
-            path: /scripts/create-table-cover.sql
-            relativeToChangelogFile: true
-            splitStatements: true
-            stripComments: true
-  - changeSet:
       id: createTableBook
       author: Aliaksei Beliak
       changes:
@@ -96,6 +97,17 @@ databaseChangeLog:
             dbms: mysql
             encoding: utf8
             path: /scripts/create-table-book.sql
+            relativeToChangelogFile: true
+            splitStatements: true
+            stripComments: true
+  - changeSet:
+      id: createTableCover
+      author: Aliaksei Beliak
+      changes:
+        - sqlFile:
+            dbms: mysql
+            encoding: utf8
+            path: /scripts/create-table-cover.sql
             relativeToChangelogFile: true
             splitStatements: true
             stripComments: true

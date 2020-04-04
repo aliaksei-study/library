@@ -5,7 +5,6 @@ import lombok.*;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Date;
-import java.util.List;
 
 @Getter
 @Setter
@@ -21,9 +20,9 @@ public class Cover implements Serializable {
     @Column(name = "id")
     private Long id;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinTable(inverseJoinColumns = @JoinColumn(name = "photo_id"))
-    private List<Photo> photo;
+    @OneToOne
+    @JoinColumn(name = "photo_id")
+    private Photo photo;
 
     @Column(name = "date_of_upload")
     private Date dateOfUpload;
