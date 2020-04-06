@@ -12,10 +12,12 @@ import java.util.List;
 @Transactional
 public class BookServiceImpl implements IBookService {
     private final BookRepository bookRepository;
+    private final IAuthorService authorService;
 
     @Autowired
-    public BookServiceImpl(BookRepository bookRepository) {
+    public BookServiceImpl(BookRepository bookRepository, IAuthorService authorService) {
         this.bookRepository = bookRepository;
+        this.authorService = authorService;
     }
 
     @Override
@@ -25,7 +27,10 @@ public class BookServiceImpl implements IBookService {
 
     @Override
     public void addNewBook(Book book) {
+        book.setAuthors(authorService.getAllFromList());
+        System.out.println(book);
         bookRepository.save(book);
+        authorService.clearList();
     }
 
     @Override

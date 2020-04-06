@@ -7,7 +7,6 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Date;
 import java.util.List;
-import java.util.Set;
 
 @Getter
 @Setter
@@ -44,7 +43,7 @@ public class Book implements Serializable {
     @JoinTable (name = "author_book",
                 joinColumns = @JoinColumn(name = "book_id"),
                 inverseJoinColumns = @JoinColumn(name = "author_id"))
-    private Set<Author> authors;
+    private List<Author> authors;
 
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "book")
     private List<Cover> covers;

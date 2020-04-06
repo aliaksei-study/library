@@ -12,4 +12,12 @@
     <artifactId>domain</artifactId>
 
     <packaging>war</packaging>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.beliakaliaksei</groupId>
+            <artifactId>helper</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
 </project>

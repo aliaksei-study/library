@@ -2,8 +2,6 @@ package com.beliakaliaksei.library.entity;
 
 import com.beliakaliaksei.library.entity.enumeration.Role;
 import lombok.*;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -18,7 +16,7 @@ import java.util.Collections;
 @EqualsAndHashCode
 @Entity
 @Table(name = "usr")
-public class User implements UserDetails, Serializable {
+public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -34,7 +32,7 @@ public class User implements UserDetails, Serializable {
     @Column(name = "role")
     private Role role;
 
-    @Override
+   /* @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return Collections.singleton(getRole());
     }
@@ -62,5 +60,5 @@ public class User implements UserDetails, Serializable {
     @Override
     public boolean isEnabled() {
         return true;
-    }
+    }*/
 }
