@@ -6,6 +6,9 @@ CREATE TABLE book
     number_of_copies       INTEGER,
     genre_id VARCHAR(20),
     publisher_id BIGINT,
+    reader_id BIGINT,
     CONSTRAINT fk_book_publisher FOREIGN KEY (publisher_id)
-        REFERENCES publisher(id)
+        REFERENCES publisher(id),
+    CONSTRAINT fk_book_reader FOREIGN KEY (reader_id)
+        REFERENCES reader(id)
 );

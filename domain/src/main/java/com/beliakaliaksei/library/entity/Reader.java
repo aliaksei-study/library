@@ -23,4 +23,7 @@ public class Reader extends Human implements Serializable {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "photo_id")
     private Photo photo;
+
+    @OneToOne(mappedBy = "reader")
+    private Book book;
 }

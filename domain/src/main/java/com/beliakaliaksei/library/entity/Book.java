@@ -39,6 +39,10 @@ public class Book implements Serializable {
     @Column(name = "genre_id")
     private Genre genre;
 
+    @OneToOne
+    @JoinColumn(name = "reader_id")
+    private Reader reader;
+
     @ManyToMany
     @JoinTable (name = "author_book",
                 joinColumns = @JoinColumn(name = "book_id"),
