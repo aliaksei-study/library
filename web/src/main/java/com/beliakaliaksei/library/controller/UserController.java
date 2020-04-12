@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
-@CrossOrigin
 public class UserController {
     private final IUserService userService;
 
@@ -24,7 +24,7 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public void addUser(@Valid @RequestBody UserDto userDto) {
-        userService.addNewUser(Mapper.map(userDto, User.class));
+    public boolean addUser(@Valid @RequestBody UserDto userDto) {
+        return (userService.loadUserByUsername(Mapper.map(userDto, User.class).getEmail()) != null);
     }
 }

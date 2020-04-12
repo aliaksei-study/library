@@ -18,6 +18,6 @@ public class UserDto {
     @NotNull(message = "{valid.password.notNull}")
     @Size(min = 5, message = "{valid.password.size.min5}")
     private String password;
-    @NotNull(message = "{valid.role.notNull}")
+    //@NotNull(message = "{valid.role.notNull}")
     private Role role;
 }

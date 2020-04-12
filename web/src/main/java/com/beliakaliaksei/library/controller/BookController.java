@@ -16,7 +16,6 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/books")
-@CrossOrigin
 public class BookController {
     private final IBookService bookService;
 
@@ -25,6 +24,7 @@ public class BookController {
         this.bookService = bookService;
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/all")
     public List<Book> showBooks() {
         return bookService.getAllBook();

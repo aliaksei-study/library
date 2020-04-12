@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Getter
 @Setter
@@ -16,4 +17,7 @@ import java.io.Serializable;
 public class Author extends Human implements Serializable {
     @Column(name = "note")
     private String note;
+
+    @ManyToMany(mappedBy = "authors")
+    private List<Book> books;
 }

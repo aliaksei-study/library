@@ -4,6 +4,8 @@ import com.beliakaliaksei.library.entity.User;
 import com.beliakaliaksei.library.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -40,8 +42,8 @@ public class UserServiceImpl implements IUserService {
         return userRepository.findById(id).orElse(new User());
     }
 
-    /*@Override
+    @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         return userRepository.loadUserByUsername(email);
-    }*/
+    }
 }

@@ -1,5 +1,6 @@
 package com.beliakaliaksei.library.service;
 
+import com.beliakaliaksei.library.entity.Photo;
 import com.beliakaliaksei.library.entity.Reader;
 import com.beliakaliaksei.library.repository.ReaderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,10 +13,12 @@ import java.util.List;
 @Transactional
 public class ReaderServiceImpl implements IReaderService{
     private final ReaderRepository readerRepository;
+    private final IPhotoService photoService;
 
     @Autowired
-    public ReaderServiceImpl(ReaderRepository readerRepository) {
+    public ReaderServiceImpl(ReaderRepository readerRepository, IPhotoService photoService) {
         this.readerRepository = readerRepository;
+        this.photoService = photoService;
     }
 
 
@@ -26,6 +29,7 @@ public class ReaderServiceImpl implements IReaderService{
 
     @Override
     public void addNewReader(Reader reader) {
+        setDefaultPhotoIfIsNotExists(reader);
         readerRepository.save(reader);
     }
 
@@ -38,5 +42,13 @@ public class ReaderServiceImpl implements IReaderService{
     @Override
     public Reader getById(long id) {
         return readerRepository.findById(id).orElse(new Reader());
+    }
+
+    public void setDefaultPhotoIfIsNotExists(Reader reader) {
+        if(reader.getPhoto() == null) {
+            Photo photo = photoService.findById(1);
+            System.out.println(photo);
+            reader.setPhoto(photo);
+        }
     }
 }

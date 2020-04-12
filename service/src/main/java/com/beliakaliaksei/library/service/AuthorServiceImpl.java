@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 @Service
@@ -19,6 +20,14 @@ public class AuthorServiceImpl implements IAuthorService{
     public AuthorServiceImpl(AuthorRepository authorRepository) {
         authors = new ArrayList<>();
         this.authorRepository = authorRepository;
+    }
+
+    @Override
+    public void addAuthors(List<Author> authors) {
+        Iterator<Author> iterator = authors.iterator();
+        while(iterator.hasNext()) {
+            authorRepository.save(iterator.next());
+        }
     }
 
     @Override

@@ -1,11 +1,13 @@
 package com.beliakaliaksei.library.entity.enumeration;
 
 
-public enum Role {
+import org.springframework.security.core.GrantedAuthority;
+
+public enum Role implements GrantedAuthority {
     USER, ADMIN;
 
-   /* @Override
+   @Override
     public String getAuthority() {
         return name();
-    }*/
+    }
 }

@@ -7,6 +7,7 @@ import java.util.Set;
 
 public interface IAuthorService {
     List<Author> getAll();
+    void addAuthors(List<Author> author);
     void addNewAuthor(Author author);
     void deleteAuthor(Author author);
     Author getById(long id);
