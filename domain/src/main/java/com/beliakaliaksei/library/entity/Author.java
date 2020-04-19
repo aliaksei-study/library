@@ -18,6 +18,6 @@ public class Author extends Human implements Serializable {
     @Column(name = "note")
     private String note;
 
-    @ManyToMany(mappedBy = "authors")
-    private List<Book> books;
+    @OneToMany(mappedBy = "author")
+    private List<AuthorBook> books;
 }

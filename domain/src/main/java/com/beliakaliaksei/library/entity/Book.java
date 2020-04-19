@@ -43,11 +43,8 @@ public class Book implements Serializable {
     @JoinColumn(name = "reader_id")
     private Reader reader;
 
-    @ManyToMany
-    @JoinTable (name = "author_book",
-                joinColumns = @JoinColumn(name = "book_id"),
-                inverseJoinColumns = @JoinColumn(name = "author_id"))
-    private List<Author> authors;
+    @OneToMany(mappedBy = "book")
+    private List<AuthorBook> books;
 
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "book")
     private List<Cover> covers;

@@ -29,7 +29,7 @@ public class BookServiceImpl implements IBookService {
     @Override
     public void addNewBook(Book book) {
         authorService.addAuthors(authorService.getAllFromList());
-        book.setAuthors(authorService.getAllFromList());
+        //book.setAuthors(authorService.getAllFromList());
         System.out.println(book);
         bookRepository.save(book);
         authorService.clearList();
