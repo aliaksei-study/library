@@ -21,23 +21,13 @@ public class AuthorController {
         this.authorService = authorService;
     }
 
-    @GetMapping("/all")
+    @GetMapping
     public List<Author> showAuthors() {
         return authorService.getAll();
     }
 
-    @GetMapping("/allAuthors")
-    public List<Author> showAuthorsFromList() {
-        return authorService.getAllFromList();
-    }
-
-    @PostMapping("/add")
-    public void addAuthorToList(@Valid @RequestBody AuthorDto authorDto) {
-        authorService.addNewAuthorToList(Mapper.map(authorDto, Author.class));
-    }
-
-    @PostMapping("/save")
-    public void saveAuthorToDatabase(@Valid @RequestBody AuthorDto authorDto) {
+    @PostMapping
+    public void saveNewAuthor(@Valid @RequestBody AuthorDto authorDto) {
         authorService.addNewAuthor(Mapper.map(authorDto, Author.class));
     }
 

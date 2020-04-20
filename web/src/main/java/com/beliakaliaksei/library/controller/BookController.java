@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/books")
 public class BookController {
     private final IBookService bookService;
@@ -24,13 +25,12 @@ public class BookController {
         this.bookService = bookService;
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
-    @GetMapping("/all")
+    @GetMapping
     public List<Book> showBooks() {
         return bookService.getAllBook();
     }
 
-    @PostMapping("/add")
+    @PostMapping
     public void saveBook(@Valid @RequestBody BookDto bookDto) {
         bookService.addNewBook(Mapper.map(bookDto, Book.class));
     }

@@ -17,7 +17,7 @@ public class PhotoController {
         this.photoService = photoService;
     }
 
-    @PostMapping("/add")
-    public void savePhoto(@RequestBody PhotoDto photoDto) {
+    @PostMapping
+    public void addNewPhoto(@RequestBody PhotoDto photoDto) {
     }
 }

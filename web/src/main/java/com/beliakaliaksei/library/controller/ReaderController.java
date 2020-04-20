@@ -6,10 +6,10 @@ import com.beliakaliaksei.library.service.IPhotoService;
 import com.beliakaliaksei.library.service.IReaderService;
 import com.beliakaliaksei.library.util.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.io.File;
 import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:4200")
@@ -25,19 +25,25 @@ public class ReaderController {
         this.photoService = photoService;
     }
 
-    @GetMapping("/all")
+    @GetMapping
     public List<Reader> getReaders() {
         return readerService.getAllReaders();
     }
 
-    @PostMapping("/add")
-    public void saveReader(@Valid @RequestBody ReaderDto readerDto) {
-        photoService.createByFileNewUrlOfPhoto(readerDto);
+    @GetMapping("/{id}")
+    public Reader getReaderById(@PathVariable("id") Long id) {
+        return readerService.getById(id);
+    }
+
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public void saveNewReader(@Valid @RequestBody ReaderDto readerDto) {
+        //photoService.createByFileNewUrlOfPhoto(readerDto);
         readerService.addNewReader(Mapper.map(readerDto, Reader.class));
     }
 
-    @PutMapping("/edit/{id}")
-    public void editReader(@PathVariable("id") long id, @Valid @RequestBody ReaderDto readerDto) {
+    @PutMapping("/{id}")
+    public void editReader(@PathVariable("id") Long id, @Valid @RequestBody ReaderDto readerDto) {
         readerService.updateReader(Mapper.map(readerDto, Reader.class), id);
     }
 }
