@@ -6,9 +6,10 @@
         <module>domain</module>
         <module>repository</module>
         <module>web</module>
-        <module>config</module>
         <module>helper</module>
         <module>service</module>
+        <module>encryption</module>
+        <module>config</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -25,6 +26,8 @@
 
     <properties>
         <java.version>13.0.2</java.version>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
 
     <dependencies>
@@ -103,14 +106,5 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-        </plugins>
-    </build>
 
 </project>
