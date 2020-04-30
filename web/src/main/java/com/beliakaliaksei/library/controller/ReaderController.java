@@ -38,8 +38,10 @@ public class ReaderController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public void saveNewReader(@Valid @RequestBody ReaderDto readerDto) {
-        //photoService.createByFileNewUrlOfPhoto(readerDto);
-        readerService.addNewReader(Mapper.map(readerDto, Reader.class));
+        if(readerDto.getPhotoDto() != null) {
+            photoService.createByFileNewUrlOfPhoto(readerDto.getPhotoDto());
+        }
+        //readerService.addNewReader(Mapper.map(readerDto, Reader.class));
     }
 
     @PutMapping("/{id}")

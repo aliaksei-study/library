@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @Configuration
-@ComponentScan(basePackages = {"com.beliakaliaksei.library.encryption", "com.beliakaliaksei.library.service", "com.beliakaliaksei.library"})
+@ComponentScan(basePackages = {"com.beliakaliaksei.library.encryption", "com.beliakaliaksei.library.service", "com.beliakaliaksei.config", "com.beliakaliaksei.library"})
 @EnableAutoConfiguration
 @EnableJpaRepositories(basePackages = {"com.beliakaliaksei.library.repository"})
 @EntityScan(basePackages = {"com.beliakaliaksei.library.entity"})
