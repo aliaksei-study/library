@@ -7,7 +7,7 @@ import com.beliakaliaksei.library.entity.Photo;
 import java.io.File;
 
 public interface IPhotoService {
-    void addNewPhoto(PhotoDto photoDto);
+    void addNewPhoto(Photo photo);
     void deletePhoto(Photo photo);
     Photo findById(long id);
     void createByFileNewUrlOfPhoto(PhotoDto photo);

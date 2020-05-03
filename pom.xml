@@ -10,6 +10,7 @@
         <module>service</module>
         <module>encryption</module>
         <module>config</module>
+        <module>exception</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>

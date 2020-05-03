@@ -2,6 +2,7 @@ package com.beliakaliaksei.library.controller;
 
 import com.beliakaliaksei.library.dto.ReaderDto;
 import com.beliakaliaksei.library.entity.Reader;
+import com.beliakaliaksei.library.exception.SuchEmailAlreadyExistsException;
 import com.beliakaliaksei.library.service.IPhotoService;
 import com.beliakaliaksei.library.service.IReaderService;
 import com.beliakaliaksei.library.util.Mapper;
@@ -37,11 +38,11 @@ public class ReaderController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void saveNewReader(@Valid @RequestBody ReaderDto readerDto) {
+    public void saveNewReader(@Valid @RequestBody ReaderDto readerDto) throws SuchEmailAlreadyExistsException {
         if(readerDto.getPhotoDto() != null) {
             photoService.createByFileNewUrlOfPhoto(readerDto.getPhotoDto());
         }
-        //readerService.addNewReader(Mapper.map(readerDto, Reader.class));
+        readerService.addNewReader(Mapper.map(readerDto, Reader.class));
     }
 
     @PutMapping("/{id}")

@@ -10,6 +10,7 @@ import com.beliakaliaksei.library.util.CloudinaryHelper;
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -31,25 +32,8 @@ public class PhotoServiceImpl implements IPhotoService {
     }
 
     @Override
-    public void addNewPhoto(PhotoDto photoDto) {
-        Photo photo = new Photo();
-        Map upload = null;
-        String localPathOfFile = "";
-        try {
-            upload = uploadViaCloudinary(photoDto.getFile());
-        } catch (RuntimeException | IOException e) {
-            e.printStackTrace();
-            localPathOfFile = uploadLocally(photoDto.getFile());
-        }
-        if(upload != null) {
-            photoDto.setUrlPhoto(upload.get("url").toString());
-            photo.setUrlPhoto(upload.get("url").toString());
-            //photoRepository.save(photo);
-        } else {
-            photoDto.setUrlPhoto(localPathOfFile);
-            photo.setUrlPhoto(localPathOfFile);
-            //photoRepository.save(photo);
-        }
+    public void addNewPhoto(Photo photo) {
+        photoRepository.save(photo);
     }
 
     @Override
@@ -67,7 +51,19 @@ public class PhotoServiceImpl implements IPhotoService {
         if (photoDto.getFile() != null) {
             File file = new File("E:\\" + photoDto.getFile().getName());
             photoDto.setFile(file);
-            addNewPhoto(photoDto);
+            Map upload = null;
+            String localPathOfFile = "";
+            try {
+                upload = uploadViaCloudinary(photoDto.getFile());
+            } catch (RuntimeException | IOException e) {
+                e.printStackTrace();
+                localPathOfFile = uploadLocally(photoDto.getFile());
+            }
+            if(upload != null) {
+                photoDto.setUrlPhoto(upload.get("url").toString());
+            } else {
+                photoDto.setUrlPhoto(localPathOfFile);
+            }
         }
     }
 
@@ -76,7 +72,7 @@ public class PhotoServiceImpl implements IPhotoService {
     }
 
     public String uploadLocally(File photo) {
-        File file = new File("C:\\Users\\Admin\\IdeaProjects\\library\\web\\src\\main\\resources\\images" + photo.getName());
+        File file = new File("C:\\Users\\Admin\\IdeaProjects\\library\\service\\src\\main\\resources\\images\\" + photo.getName());
         try {
             byte[] photoBytes = Files.readAllBytes(photo.toPath());
             Files.write(file.toPath(), photoBytes);
