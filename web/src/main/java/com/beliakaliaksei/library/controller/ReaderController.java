@@ -7,11 +7,11 @@ import com.beliakaliaksei.library.service.IPhotoService;
 import com.beliakaliaksei.library.service.IReaderService;
 import com.beliakaliaksei.library.util.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
@@ -27,8 +27,8 @@ public class ReaderController {
     }
 
     @GetMapping
-    public List<Reader> getReaders() {
-        return readerService.getAllReaders();
+    public Page<Reader> getReaders(@RequestParam (defaultValue = "0") int page) {
+        return readerService.getAllReaders(page);
     }
 
     @GetMapping("/{id}")

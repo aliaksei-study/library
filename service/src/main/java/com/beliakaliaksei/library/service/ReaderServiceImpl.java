@@ -7,6 +7,9 @@ import com.beliakaliaksei.library.exception.SuchEmailAlreadyExistsException;
 import com.beliakaliaksei.library.repository.ReaderRepository;
 import com.beliakaliaksei.library.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -33,8 +36,10 @@ public class ReaderServiceImpl implements IReaderService{
 
 
     @Override
-    public List<Reader> getAllReaders() {
-        return readerRepository.findAll();
+    public Page<Reader> getAllReaders(int page) {
+        final int sizeOfPage = 1;
+        Pageable pageable = PageRequest.of(page, sizeOfPage);
+        return readerRepository.findAll(pageable);
     }
 
     @Override
