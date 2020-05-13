@@ -2,6 +2,7 @@ package com.beliakaliaksei.library.controller;
 
 import com.beliakaliaksei.library.dto.ReaderDto;
 import com.beliakaliaksei.library.entity.Reader;
+import com.beliakaliaksei.library.exception.ReaderNotFoundException;
 import com.beliakaliaksei.library.exception.SuchEmailAlreadyExistsException;
 import com.beliakaliaksei.library.service.IPhotoService;
 import com.beliakaliaksei.library.service.IReaderService;
@@ -32,7 +33,8 @@ public class ReaderController {
     }
 
     @GetMapping("/{id}")
-    public Reader getReaderById(@PathVariable("id") Long id) {
+    @ResponseStatus(HttpStatus.OK)
+    public Reader getReaderById(@PathVariable("id") Long id) throws ReaderNotFoundException {
         return readerService.getById(id);
     }
 

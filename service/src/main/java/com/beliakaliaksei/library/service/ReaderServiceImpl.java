@@ -2,7 +2,7 @@ package com.beliakaliaksei.library.service;
 
 import com.beliakaliaksei.library.entity.Photo;
 import com.beliakaliaksei.library.entity.Reader;
-import com.beliakaliaksei.library.entity.User;
+import com.beliakaliaksei.library.exception.ReaderNotFoundException;
 import com.beliakaliaksei.library.exception.SuchEmailAlreadyExistsException;
 import com.beliakaliaksei.library.repository.ReaderRepository;
 import com.beliakaliaksei.library.repository.UserRepository;
@@ -14,12 +14,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.List;
-import java.util.Optional;
 
 @Service
 @Transactional
-public class ReaderServiceImpl implements IReaderService{
+public class ReaderServiceImpl implements IReaderService {
     private final ReaderRepository readerRepository;
     private final IPhotoService photoService;
     private final UserRepository userRepository;
@@ -45,7 +43,7 @@ public class ReaderServiceImpl implements IReaderService{
     @Override
     public void addNewReader(Reader reader) throws SuchEmailAlreadyExistsException {
         setDefaultPhotoIfIsNotExists(reader);
-        if(userRepository.loadUserByUsername(reader.getUser().getEmail()) == null) {
+        if (userRepository.loadUserByUsername(reader.getUser().getEmail()) == null) {
             reader.getUser().setPassword(passwordEncoder.encode((reader.getUser().getPassword())));
             readerRepository.save(reader);
         } else {
@@ -60,12 +58,12 @@ public class ReaderServiceImpl implements IReaderService{
     }
 
     @Override
-    public Reader getById(long id) {
-        return readerRepository.findById(id).orElse(new Reader());
+    public Reader getById(long id) throws ReaderNotFoundException {
+        return readerRepository.findById(id).orElseThrow(ReaderNotFoundException::new);
     }
 
     public void setDefaultPhotoIfIsNotExists(Reader reader) {
-        if(reader.getPhoto() == null) {
+        if (reader.getPhoto() == null) {
             Photo photo = photoService.findById(1);
             reader.setPhoto(photo);
         }

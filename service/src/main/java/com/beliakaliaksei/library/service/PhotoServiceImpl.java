@@ -52,16 +52,16 @@ public class PhotoServiceImpl implements IPhotoService {
             File file = new File("E:\\" + photoDto.getFile().getName());
             photoDto.setFile(file);
             Map upload = null;
-            String localPathOfFile = "";
+            String localPathOfFile;
             try {
                 upload = uploadViaCloudinary(photoDto.getFile());
             } catch (RuntimeException | IOException e) {
                 e.printStackTrace();
-                localPathOfFile = uploadLocally(photoDto.getFile());
             }
             if(upload != null) {
                 photoDto.setUrlPhoto(upload.get("url").toString());
             } else {
+                localPathOfFile = uploadLocally(photoDto.getFile());
                 photoDto.setUrlPhoto(localPathOfFile);
             }
         }
