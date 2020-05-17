@@ -3,6 +3,7 @@ package com.beliakaliaksei.library;
 import com.beliakaliaksei.library.entity.Photo;
 import com.beliakaliaksei.library.entity.User;
 import com.beliakaliaksei.library.entity.enumeration.Role;
+import com.beliakaliaksei.library.exception.SuchEmailAlreadyExistsException;
 import com.beliakaliaksei.library.repository.PhotoRepository;
 import com.beliakaliaksei.library.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,10 @@ public class DBInitializer implements CommandLineRunner {
         Photo photo = new Photo((long) 1, "https://res.cloudinary.com/dsnsf4ukx/image/upload/v1586440687/Default_f7tcwx.jpg");
         photoRepository.save(photo);
         User user = new User((long)1, "alexbeljak99@gmail.com", "123456", Role.ADMIN);
-        userService.addNewUser(user);
+        try {
+            userService.addNewUser(user);
+        } catch (SuchEmailAlreadyExistsException e) {
+            System.out.println(e.getMessage());
+        }
     }
 }

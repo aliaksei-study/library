@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
@@ -48,7 +49,18 @@ public class ReaderController {
     }
 
     @PutMapping("/{id}")
-    public void editReader(@PathVariable("id") Long id, @Valid @RequestBody ReaderDto readerDto) {
+    @ResponseStatus(HttpStatus.OK)
+    public void editReader(@PathVariable("id") Long id, @Valid @RequestBody ReaderDto readerDto)
+            throws SuchEmailAlreadyExistsException, ReaderNotFoundException {
+        if(readerDto.getPhotoDto() != null) {
+            photoService.createByFileNewUrlOfPhoto(readerDto.getPhotoDto());
+        }
         readerService.updateReader(Mapper.map(readerDto, Reader.class), id);
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public void deleteReaders(@PathVariable("id") List<Long> readerIds) throws ReaderNotFoundException {
+        readerService.deleteReaders(readerIds);
     }
 }

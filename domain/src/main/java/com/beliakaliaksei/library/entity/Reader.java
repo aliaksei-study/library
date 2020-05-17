@@ -20,7 +20,7 @@ public class Reader extends Human implements Serializable {
     @Column(name = "phone")
     private String phone;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
     @JoinColumn(name = "photo_id")
     private Photo photo;
 

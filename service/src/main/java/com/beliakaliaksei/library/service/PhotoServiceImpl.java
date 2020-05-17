@@ -18,6 +18,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.Map;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -65,6 +66,11 @@ public class PhotoServiceImpl implements IPhotoService {
                 photoDto.setUrlPhoto(localPathOfFile);
             }
         }
+    }
+
+    @Override
+    public Optional<Photo> findPhotoByUrlPhoto(String urlPhoto) {
+        return photoRepository.findPhotoByUrlPhoto(urlPhoto);
     }
 
     public Map uploadViaCloudinary(File photo) throws IOException, RuntimeException {

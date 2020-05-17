@@ -4,6 +4,7 @@ import com.beliakaliaksei.library.entity.Photo;
 import com.beliakaliaksei.library.entity.Reader;
 import com.beliakaliaksei.library.exception.ReaderNotFoundException;
 import com.beliakaliaksei.library.exception.SuchEmailAlreadyExistsException;
+import com.beliakaliaksei.library.exception.UserNotFoundException;
 import com.beliakaliaksei.library.repository.ReaderRepository;
 import com.beliakaliaksei.library.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,47 +15,62 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
 public class ReaderServiceImpl implements IReaderService {
     private final ReaderRepository readerRepository;
     private final IPhotoService photoService;
-    private final UserRepository userRepository;
-    private PasswordEncoder passwordEncoder;
+    private final IUserService userService;
 
     @Autowired
-    public ReaderServiceImpl(ReaderRepository readerRepository, IPhotoService photoService,
-                             UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public ReaderServiceImpl(ReaderRepository readerRepository, IPhotoService photoService, IUserService userService) {
         this.readerRepository = readerRepository;
         this.photoService = photoService;
-        this.userRepository = userRepository;
-        this.passwordEncoder = passwordEncoder;
+        this.userService = userService;
     }
 
 
     @Override
     public Page<Reader> getAllReaders(int page) {
-        final int sizeOfPage = 1;
+        final int sizeOfPage = 2;
         Pageable pageable = PageRequest.of(page, sizeOfPage);
         return readerRepository.findAll(pageable);
     }
 
     @Override
     public void addNewReader(Reader reader) throws SuchEmailAlreadyExistsException {
+        Optional<Photo> readerPhoto;
         setDefaultPhotoIfIsNotExists(reader);
-        if (userRepository.loadUserByUsername(reader.getUser().getEmail()) == null) {
-            reader.getUser().setPassword(passwordEncoder.encode((reader.getUser().getPassword())));
-            readerRepository.save(reader);
-        } else {
-            throw new SuchEmailAlreadyExistsException("User with such email already exists");
-        }
+        userService.addNewUser(reader.getUser());
+        readerPhoto = photoService.findPhotoByUrlPhoto(reader.getPhoto().getUrlPhoto());
+        readerPhoto.ifPresent(reader::setPhoto);
+        readerRepository.save(reader);
     }
 
     @Override
-    public void updateReader(Reader reader, long id) {
-        reader.setId(id);
-        readerRepository.save(reader);
+    public void updateReader(Reader updatedReader, long id) throws SuchEmailAlreadyExistsException,
+            ReaderNotFoundException {
+        long userId;
+        Reader savedReader = readerRepository.findById(id).orElseThrow(ReaderNotFoundException::new);
+        userId = savedReader.getUser().getId();
+        if(userService.isUserWithSuchEmailAlreadyExistsExcludedCurrentUser(updatedReader.getUser(), userId)){
+            throw new SuchEmailAlreadyExistsException();
+        }
+        updatedReader.getUser().setId(userId);
+        if(!savedReader.getUser().getPassword().equals(updatedReader.getUser().getPassword())) {
+            userService.encryptUserPassword(updatedReader.getUser());
+        }
+        if(updatedReader.getPhoto() != null) {
+            Photo savedPhoto = photoService.findPhotoByUrlPhoto(updatedReader.getPhoto().getUrlPhoto())
+                    .orElseGet(updatedReader::getPhoto);
+            updatedReader.setPhoto(savedPhoto);
+        } else {
+            updatedReader.setPhoto(savedReader.getPhoto());
+        }
+        readerRepository.save(updatedReader);
     }
 
     @Override
@@ -62,10 +78,26 @@ public class ReaderServiceImpl implements IReaderService {
         return readerRepository.findById(id).orElseThrow(ReaderNotFoundException::new);
     }
 
+    @Override
+    public void deleteReaders(List<Long> readerIds) throws ReaderNotFoundException {
+        Reader reader;
+        for(long id : readerIds) {
+            reader = readerRepository.findById(id).orElseThrow(ReaderNotFoundException::new);
+            if((reader.getPhoto().getId() != 1) && (isPhotoHasOneReaderUsage(reader.getPhoto()))) {
+                photoService.deletePhoto(reader.getPhoto());
+            }
+            readerRepository.delete(reader);
+        }
+    }
+
     public void setDefaultPhotoIfIsNotExists(Reader reader) {
         if (reader.getPhoto() == null) {
             Photo photo = photoService.findById(1);
             reader.setPhoto(photo);
         }
+    }
+
+    public boolean isPhotoHasOneReaderUsage(Photo photo) {
+        return readerRepository.findReadersByPhoto(photo).size() == 1;
     }
 }

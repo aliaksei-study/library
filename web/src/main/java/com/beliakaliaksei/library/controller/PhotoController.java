@@ -35,24 +35,27 @@ public class PhotoController {
     public void addNewPhoto(@RequestBody PhotoDto photoDto) {
     }
 
-    @GetMapping
-    public ResponseEntity<List<String>> getImage() {
-        File file = new File(photoService.findById(2).getUrlPhoto());
-        String encodeBase64 = null;
+    @GetMapping("/{id}")
+    public ResponseEntity<List<String>> getImage(@PathVariable ("id") Long id) {
         String result = null;
-        String extension = FilenameUtils.getExtension(file.getName());
-        try {
-            FileInputStream fileInputStream = new FileInputStream(file);
-            byte[] bytes = new byte[(int) file.length()];
-            fileInputStream.read(bytes);
-            encodeBase64 = Base64.encodeBase64String(bytes);
-            result = "data:image/" + extension + ";base64," + encodeBase64;
-            fileInputStream.close();
-        } catch (IOException e) {
-            e.printStackTrace();
+        if(id == 1) {
+            result = photoService.findById(1).getUrlPhoto();
+        } else {
+            File file = new File(photoService.findById(id).getUrlPhoto());
+            String encodeBase64 = null;
+            String extension = FilenameUtils.getExtension(file.getName());
+            try {
+                FileInputStream fileInputStream = new FileInputStream(file);
+                byte[] bytes = new byte[(int) file.length()];
+                fileInputStream.read(bytes);
+                encodeBase64 = Base64.encodeBase64String(bytes);
+                result = "data:image/" + extension + ";base64," + encodeBase64;
+                fileInputStream.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
 
-        //String result = photoService.findById(1).getUrlPhoto();
         return new ResponseEntity<List<String>>(List.of(result), HttpStatus.OK);
     }
 }
