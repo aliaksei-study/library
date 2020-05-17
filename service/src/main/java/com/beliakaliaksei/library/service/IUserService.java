@@ -14,7 +14,6 @@ public interface IUserService extends UserDetailsService {
     List<User> getAllUsers();
     void addNewUser(User user) throws SuchEmailAlreadyExistsException;
     void editUser(User user, long id) throws UserNotFoundException;
-    User getById(long id);
     UserDetails loadUserByUsername(String email);
     void encryptUserPassword(User user);
     boolean isUserWithSuchEmailAlreadyExists(User user);

@@ -13,4 +13,5 @@ public interface IPhotoService {
     Photo findById(long id);
     void createByFileNewUrlOfPhoto(PhotoDto photo);
     Optional<Photo> findPhotoByUrlPhoto(String urlPhoto);
+    String encodeLocallyUploadedImage(Long imageId);
 }

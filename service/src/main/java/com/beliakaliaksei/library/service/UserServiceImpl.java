@@ -57,11 +57,6 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public User getById(long id) {
-        return userRepository.findById(id).orElse(new User());
-    }
-
-    @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         return userRepository.loadUserByUsername(email);
     }

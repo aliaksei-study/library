@@ -2,9 +2,11 @@ package com.beliakaliaksei.library.controller;
 
 import com.beliakaliaksei.library.dto.AuthorDto;
 import com.beliakaliaksei.library.entity.Author;
+import com.beliakaliaksei.library.entity.Reader;
 import com.beliakaliaksei.library.service.IAuthorService;
 import com.beliakaliaksei.library.util.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -22,14 +24,8 @@ public class AuthorController {
     }
 
     @GetMapping
-    public List<Author> showAuthors() {
-        return authorService.getAll();
+    public Page<Author> getAuthors(@RequestParam (defaultValue = "0") int page) {
+        return authorService.getPageAuthors(page);
     }
-
-    @PostMapping
-    public void saveNewAuthor(@Valid @RequestBody AuthorDto authorDto) {
-        authorService.addNewAuthor(Mapper.map(authorDto, Author.class));
-    }
-
 
 }

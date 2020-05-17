@@ -37,25 +37,6 @@ public class PhotoController {
 
     @GetMapping("/{id}")
     public ResponseEntity<List<String>> getImage(@PathVariable ("id") Long id) {
-        String result = null;
-        if(id == 1) {
-            result = photoService.findById(1).getUrlPhoto();
-        } else {
-            File file = new File(photoService.findById(id).getUrlPhoto());
-            String encodeBase64 = null;
-            String extension = FilenameUtils.getExtension(file.getName());
-            try {
-                FileInputStream fileInputStream = new FileInputStream(file);
-                byte[] bytes = new byte[(int) file.length()];
-                fileInputStream.read(bytes);
-                encodeBase64 = Base64.encodeBase64String(bytes);
-                result = "data:image/" + extension + ";base64," + encodeBase64;
-                fileInputStream.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
-        return new ResponseEntity<List<String>>(List.of(result), HttpStatus.OK);
+        return new ResponseEntity<>(List.of(photoService.encodeLocallyUploadedImage(id)), HttpStatus.OK);
     }
 }

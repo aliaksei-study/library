@@ -9,12 +9,15 @@ import com.beliakaliaksei.library.repository.PhotoRepository;
 import com.beliakaliaksei.library.util.CloudinaryHelper;
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
+import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.Map;
@@ -71,6 +74,29 @@ public class PhotoServiceImpl implements IPhotoService {
     @Override
     public Optional<Photo> findPhotoByUrlPhoto(String urlPhoto) {
         return photoRepository.findPhotoByUrlPhoto(urlPhoto);
+    }
+
+    @Override
+    public String encodeLocallyUploadedImage(Long imageId) {
+        String result = null;
+        if(imageId == 1) {
+            result = findById(1).getUrlPhoto();
+        } else {
+            File file = new File(findById(imageId).getUrlPhoto());
+            String encodeBase64;
+            String extension = FilenameUtils.getExtension(file.getName());
+            try {
+                FileInputStream fileInputStream = new FileInputStream(file);
+                byte[] bytes = new byte[(int) file.length()];
+                fileInputStream.read(bytes);
+                encodeBase64 = Base64.encodeBase64String(bytes);
+                result = "data:image/" + extension + ";base64," + encodeBase64;
+                fileInputStream.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return result;
     }
 
     public Map uploadViaCloudinary(File photo) throws IOException, RuntimeException {
