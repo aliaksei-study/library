@@ -8,4 +8,5 @@ import java.util.Set;
 
 public interface IAuthorService {
     Page<Author> getPageAuthors(int page);
+    void saveNewAuthor(Author author);
 }

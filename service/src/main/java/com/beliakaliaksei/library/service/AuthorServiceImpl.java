@@ -30,4 +30,9 @@ public class AuthorServiceImpl implements IAuthorService{
         Pageable pageable = PageRequest.of(page, pageSize);
         return authorRepository.findAll(pageable);
     }
+
+    @Override
+    public void saveNewAuthor(Author author) {
+        authorRepository.save(author);
+    }
 }
