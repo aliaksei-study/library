@@ -3,6 +3,7 @@ package com.beliakaliaksei.library.controller;
 import com.beliakaliaksei.library.dto.AuthorDto;
 import com.beliakaliaksei.library.entity.Author;
 import com.beliakaliaksei.library.entity.Reader;
+import com.beliakaliaksei.library.exception.AuthorNotFoundException;
 import com.beliakaliaksei.library.service.IAuthorService;
 import com.beliakaliaksei.library.util.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +34,24 @@ public class AuthorController {
     @ResponseStatus(HttpStatus.CREATED)
     public void saveNewAuthor(@Valid @RequestBody AuthorDto authorDto) {
         authorService.saveNewAuthor(Mapper.map(authorDto, Author.class));
+    }
+
+    @GetMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public Author getAuthorById(@PathVariable("id") Long id) throws AuthorNotFoundException {
+        return authorService.getAuthorById(id);
+    }
+
+    @PutMapping("/{id}")
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public void updateAuthor(@PathVariable("id") Long id, @Valid @RequestBody AuthorDto authorDto) {
+        authorService.updateAuthor(Mapper.map(authorDto, Author.class), id);
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public void deleteAuthors(@PathVariable("id") List<Long> authorIds) throws AuthorNotFoundException {
+        authorService.deleteAuthors(authorIds);
     }
 
 }

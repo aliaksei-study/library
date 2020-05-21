@@ -1,6 +1,7 @@
 package com.beliakaliaksei.library.service;
 
 import com.beliakaliaksei.library.entity.Author;
+import com.beliakaliaksei.library.exception.AuthorNotFoundException;
 import com.beliakaliaksei.library.repository.AuthorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -34,5 +35,24 @@ public class AuthorServiceImpl implements IAuthorService{
     @Override
     public void saveNewAuthor(Author author) {
         authorRepository.save(author);
+    }
+
+    @Override
+    public Author getAuthorById(long id) throws AuthorNotFoundException {
+        return authorRepository.findById(id).orElseThrow(() -> new AuthorNotFoundException("Author does not exist"));
+    }
+
+    @Override
+    public void updateAuthor(Author updatedAuthor, long id) {
+        updatedAuthor.setId(id);
+        authorRepository.save(updatedAuthor);
+    }
+
+    @Override
+    public void deleteAuthors(List<Long> authorIds) throws AuthorNotFoundException {
+        for(long authorId : authorIds) {
+            Author author = getAuthorById(authorId);
+            authorRepository.delete(author);
+        }
     }
 }
