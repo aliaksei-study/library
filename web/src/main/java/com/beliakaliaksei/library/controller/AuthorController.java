@@ -26,8 +26,9 @@ public class AuthorController {
     }
 
     @GetMapping
-    public Page<Author> getAuthors(@RequestParam (defaultValue = "0") int page) {
-        return authorService.getPageAuthors(page);
+    public Page<Author> getPageAuthors(@RequestParam (defaultValue = "0") int page,
+                                       @RequestParam (defaultValue = "5") int pageSize) {
+        return authorService.getPageAuthors(page, pageSize);
     }
 
     @PostMapping

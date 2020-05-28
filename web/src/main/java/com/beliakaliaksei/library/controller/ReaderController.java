@@ -29,8 +29,9 @@ public class ReaderController {
     }
 
     @GetMapping
-    public Page<Reader> getReaders(@RequestParam (defaultValue = "0") int page) {
-        return readerService.getAllReaders(page);
+    public Page<Reader> getReaders(@RequestParam (defaultValue = "0") int page,
+                                   @RequestParam (defaultValue = "5") int pageSize) {
+        return readerService.getAllReaders(page, pageSize);
     }
 
     @GetMapping("/{id}")

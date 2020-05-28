@@ -9,7 +9,7 @@ import org.springframework.data.domain.Page;
 import java.util.List;
 
 public interface IReaderService {
-    Page<Reader> getAllReaders(int page);
+    Page<Reader> getAllReaders(int page, int pageSize);
     void addNewReader(Reader reader) throws SuchEmailAlreadyExistsException;
     void updateReader(Reader reader, long id) throws SuchEmailAlreadyExistsException, ReaderNotFoundException;
     Reader getById(long id) throws ReaderNotFoundException;

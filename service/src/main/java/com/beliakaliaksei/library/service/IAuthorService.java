@@ -9,7 +9,7 @@ import java.util.Optional;
 import java.util.Set;
 
 public interface IAuthorService {
-    Page<Author> getPageAuthors(int page);
+    Page<Author> getPageAuthors(int page, int pageSize);
     void saveNewAuthor(Author author);
     Author getAuthorById(long id) throws AuthorNotFoundException;
     void updateAuthor(Author updatedAuthor, long id);

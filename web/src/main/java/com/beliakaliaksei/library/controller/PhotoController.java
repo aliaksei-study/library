@@ -31,10 +31,6 @@ public class PhotoController {
         this.photoService = photoService;
     }
 
-    @PostMapping
-    public void addNewPhoto(@RequestBody PhotoDto photoDto) {
-    }
-
     @GetMapping("/{id}")
     public ResponseEntity<List<String>> getImage(@PathVariable ("id") Long id) {
         return new ResponseEntity<>(List.of(photoService.encodeLocallyUploadedImage(id)), HttpStatus.OK);

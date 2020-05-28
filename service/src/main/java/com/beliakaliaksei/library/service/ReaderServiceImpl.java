@@ -34,9 +34,8 @@ public class ReaderServiceImpl implements IReaderService {
 
 
     @Override
-    public Page<Reader> getAllReaders(int page) {
-        final int sizeOfPage = 2;
-        Pageable pageable = PageRequest.of(page, sizeOfPage);
+    public Page<Reader> getAllReaders(int page, int pageSize) {
+        Pageable pageable = PageRequest.of(page, pageSize);
         return readerRepository.findAll(pageable);
     }
 

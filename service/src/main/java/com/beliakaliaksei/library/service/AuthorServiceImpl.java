@@ -25,9 +25,7 @@ public class AuthorServiceImpl implements IAuthorService{
     }
 
     @Override
-    public Page<Author> getPageAuthors(int page) {
-        final int pageSize;
-        pageSize = 2;
+    public Page<Author> getPageAuthors(int page, int pageSize) {
         Pageable pageable = PageRequest.of(page, pageSize);
         return authorRepository.findAll(pageable);
     }
