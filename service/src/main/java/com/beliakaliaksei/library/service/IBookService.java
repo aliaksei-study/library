@@ -1,11 +1,12 @@
 package com.beliakaliaksei.library.service;
 
 import com.beliakaliaksei.library.entity.Book;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 
 public interface IBookService {
-    List<Book> getAllBook();
+    Page<Book> getBookPage(int page, int pageSize);
     void addNewBook(Book book);
     void deleteBook(Book book);
     Book getById(long id);

@@ -10,6 +10,7 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.sql.Date;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -25,5 +26,7 @@ public class BookDto {
     @Min(value = 0, message = "{valid.numberOfCopies.min}")
     @Max(100_000_000)
     private int numberOfCopies;
+    @Valid
+    private List<AuthorDto> authorDto;
     private Genre genre;
 }

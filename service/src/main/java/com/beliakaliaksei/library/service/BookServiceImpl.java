@@ -3,6 +3,9 @@ package com.beliakaliaksei.library.service;
 import com.beliakaliaksei.library.entity.Book;
 import com.beliakaliaksei.library.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -21,14 +24,16 @@ public class BookServiceImpl implements IBookService {
         this.authorService = authorService;
     }
 
+
     @Override
-    public List<Book> getAllBook() {
-        return bookRepository.findAll();
+    public Page<Book> getBookPage(int page, int pageSize) {
+        Pageable pageable = PageRequest.of(page, pageSize);
+        return bookRepository.findAll(pageable);
     }
 
     @Override
     public void addNewBook(Book book) {
-
+        bookRepository.save(book);
     }
 
     @Override

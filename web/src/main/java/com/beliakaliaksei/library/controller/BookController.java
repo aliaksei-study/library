@@ -8,6 +8,8 @@ import com.beliakaliaksei.library.entity.Book;
 import com.beliakaliaksei.library.service.IBookService;
 import com.beliakaliaksei.library.util.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -26,8 +28,10 @@ public class BookController {
     }
 
     @GetMapping
-    public List<Book> showBooks() {
-        return bookService.getAllBook();
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public Page<Book> showBookPage(@RequestParam(defaultValue = "0") int page,
+                                   @RequestParam(defaultValue = "5") int pageSize) {
+        return bookService.getBookPage(page, pageSize);
     }
 
     @PostMapping

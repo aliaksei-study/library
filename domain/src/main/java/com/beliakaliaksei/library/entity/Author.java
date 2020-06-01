@@ -18,6 +18,8 @@ public class Author extends Human implements Serializable {
     @Column(name = "note")
     private String note;
 
-    @OneToMany(mappedBy = "author")
-    private List<AuthorBook> books;
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    @ManyToMany(mappedBy="authors")
+    List<Book> books;
 }
