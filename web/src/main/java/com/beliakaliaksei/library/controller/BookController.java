@@ -4,6 +4,7 @@ package com.beliakaliaksei.library.controller;
 import com.beliakaliaksei.library.dto.AddressDto;
 import com.beliakaliaksei.library.dto.BookDto;
 import com.beliakaliaksei.library.dto.PublisherDto;
+import com.beliakaliaksei.library.entity.Author;
 import com.beliakaliaksei.library.entity.Book;
 import com.beliakaliaksei.library.service.IBookService;
 import com.beliakaliaksei.library.util.Mapper;
@@ -36,6 +37,10 @@ public class BookController {
 
     @PostMapping
     public void saveBook(@Valid @RequestBody BookDto bookDto) {
-        bookService.addNewBook(Mapper.map(bookDto, Book.class));
+//        bookService.addNewBook(Mapper.map(bookDto, Book.class));
+        Book book = Mapper.map(bookDto, Book.class);
+        List<Author> authors = Mapper.mapAll(bookDto.getAuthorDto(), Author.class);
+        book.setAuthors(authors);
+        bookService.addNewBook(book);
     }
 }

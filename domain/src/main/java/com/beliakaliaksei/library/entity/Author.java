@@ -17,9 +17,4 @@ import java.util.List;
 public class Author extends Human implements Serializable {
     @Column(name = "note")
     private String note;
-
-    @ToString.Exclude
-    @EqualsAndHashCode.Exclude
-    @ManyToMany(mappedBy="authors")
-    List<Book> books;
 }
