@@ -40,6 +40,12 @@ public class ReaderController {
         return readerService.getById(id);
     }
 
+    @GetMapping("/without-book")
+    @ResponseStatus(HttpStatus.OK)
+    public List<Reader> getReadersWithoutBook() {
+        return readerService.getReadersWithoutBooks();
+    }
+
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public void saveNewReader(@Valid @RequestBody ReaderDto readerDto) throws SuchEmailAlreadyExistsException {

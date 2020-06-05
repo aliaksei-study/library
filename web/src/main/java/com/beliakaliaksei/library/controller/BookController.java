@@ -6,6 +6,7 @@ import com.beliakaliaksei.library.dto.BookDto;
 import com.beliakaliaksei.library.dto.PublisherDto;
 import com.beliakaliaksei.library.entity.Author;
 import com.beliakaliaksei.library.entity.Book;
+import com.beliakaliaksei.library.exception.BookNotFoundException;
 import com.beliakaliaksei.library.service.IBookService;
 import com.beliakaliaksei.library.util.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,9 +36,14 @@ public class BookController {
         return bookService.getBookPage(page, pageSize);
     }
 
+    @GetMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public Book getBookById(@PathVariable("id") Long bookId) throws BookNotFoundException {
+        return bookService.getById(bookId);
+    }
+
     @PostMapping
     public void saveBook(@Valid @RequestBody BookDto bookDto) {
-//        bookService.addNewBook(Mapper.map(bookDto, Book.class));
         Book book = Mapper.map(bookDto, Book.class);
         List<Author> authors = Mapper.mapAll(bookDto.getAuthorDto(), Author.class);
         book.setAuthors(authors);

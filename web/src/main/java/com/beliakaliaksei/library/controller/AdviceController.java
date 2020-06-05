@@ -1,9 +1,6 @@
 package com.beliakaliaksei.library.controller;
 
-import com.beliakaliaksei.library.exception.AuthorNotFoundException;
-import com.beliakaliaksei.library.exception.ReaderNotFoundException;
-import com.beliakaliaksei.library.exception.SuchEmailAlreadyExistsException;
-import com.beliakaliaksei.library.exception.UserNotFoundException;
+import com.beliakaliaksei.library.exception.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -38,6 +35,13 @@ public class AdviceController {
     @ExceptionHandler({AuthorNotFoundException.class})
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     String authorNotFoundHandler(AuthorNotFoundException ex) {
+        return ex.getMessage();
+    }
+
+    @ResponseBody
+    @ExceptionHandler({BookNotFoundException.class})
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    String bookNotFoundHandler(BookNotFoundException ex) {
         return ex.getMessage();
     }
 }

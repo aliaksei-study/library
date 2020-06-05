@@ -1,6 +1,7 @@
 package com.beliakaliaksei.library.service;
 
 import com.beliakaliaksei.library.entity.Book;
+import com.beliakaliaksei.library.exception.BookNotFoundException;
 import com.beliakaliaksei.library.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -42,7 +43,7 @@ public class BookServiceImpl implements IBookService {
     }
 
     @Override
-    public Book getById(long id) {
-        return null;
+    public Book getById(long id) throws BookNotFoundException {
+        return bookRepository.findById(id).orElseThrow(BookNotFoundException::new);
     }
 }

@@ -40,6 +40,11 @@ public class ReaderServiceImpl implements IReaderService {
     }
 
     @Override
+    public List<Reader> getReadersWithoutBooks() {
+        return readerRepository.findReaderByBookNull();
+    }
+
+    @Override
     public void addNewReader(Reader reader) throws SuchEmailAlreadyExistsException {
         Optional<Photo> readerPhoto;
         setDefaultPhotoIfIsNotExists(reader);
