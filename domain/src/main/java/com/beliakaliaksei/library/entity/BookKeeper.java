@@ -26,11 +26,11 @@ public class BookKeeper implements Serializable {
     @Column(name = "return_date")
     private Date returnDate;
 
-    @OneToOne
+    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
     @JoinColumn(name = "book_id")
     private Book book;
 
-    @OneToOne
+    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
     @JoinColumn(name = "reader_id")
     private Reader reader;
 }

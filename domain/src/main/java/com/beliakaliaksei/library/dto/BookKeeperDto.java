@@ -19,5 +19,5 @@ public class BookKeeperDto {
     @NotNull(message = "{valid.book.notNull}")
     private Book book;
     @NotNull(message = "{valid.reader.notNull}")
-    private Reader reader;
+    private Long readerId;
 }

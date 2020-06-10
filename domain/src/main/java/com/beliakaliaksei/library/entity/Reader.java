@@ -1,9 +1,11 @@
 package com.beliakaliaksei.library.entity;
 
+import com.beliakaliaksei.library.entity.enumeration.Gender;
 import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.sql.Date;
 
 @Getter
 @Setter
