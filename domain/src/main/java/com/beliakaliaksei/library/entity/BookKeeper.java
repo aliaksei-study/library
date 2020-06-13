@@ -1,5 +1,6 @@
 package com.beliakaliaksei.library.entity;
 
+import com.fasterxml.jackson.annotation.*;
 import lombok.*;
 
 import javax.persistence.*;
@@ -25,12 +26,4 @@ public class BookKeeper implements Serializable {
 
     @Column(name = "return_date")
     private Date returnDate;
-
-    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
-    @JoinColumn(name = "book_id")
-    private Book book;
-
-    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
-    @JoinColumn(name = "reader_id")
-    private Reader reader;
 }

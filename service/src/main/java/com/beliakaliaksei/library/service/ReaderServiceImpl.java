@@ -4,14 +4,11 @@ import com.beliakaliaksei.library.entity.Photo;
 import com.beliakaliaksei.library.entity.Reader;
 import com.beliakaliaksei.library.exception.ReaderNotFoundException;
 import com.beliakaliaksei.library.exception.SuchEmailAlreadyExistsException;
-import com.beliakaliaksei.library.exception.UserNotFoundException;
 import com.beliakaliaksei.library.repository.ReaderRepository;
-import com.beliakaliaksei.library.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -41,7 +38,7 @@ public class ReaderServiceImpl implements IReaderService {
 
     @Override
     public List<Reader> getReadersWithoutBooks() {
-        return readerRepository.findReaderByBookNull();
+        return readerRepository.findReaderByBookKeeperNull();
     }
 
     @Override

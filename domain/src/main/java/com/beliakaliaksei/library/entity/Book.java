@@ -1,6 +1,9 @@
 package com.beliakaliaksei.library.entity;
 
 import com.beliakaliaksei.library.entity.enumeration.Genre;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -39,9 +42,13 @@ public class Book implements Serializable {
     @Column(name = "genre_id")
     private Genre genre;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "reader_id")
     private Reader reader;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "book_keeper_id")
+    private BookKeeper bookKeeper;
 
     @ManyToMany(cascade = {CascadeType.MERGE})
     @JoinTable(name = "author_book",

@@ -1,6 +1,9 @@
 package com.beliakaliaksei.library.entity;
 
 import com.beliakaliaksei.library.entity.enumeration.Gender;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -25,7 +28,4 @@ public class Reader extends Human implements Serializable {
     @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
     @JoinColumn(name = "photo_id")
     private Photo photo;
-
-    @OneToOne(mappedBy = "reader")
-    private Book book;
 }
