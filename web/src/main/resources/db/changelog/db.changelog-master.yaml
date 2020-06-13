@@ -90,6 +90,17 @@ databaseChangeLog:
                   splitStatements: true
                   stripComments: true
   - changeSet:
+      id: createTableBookKeeper
+      author: Aliaksei Beliak
+      changes:
+        - sqlFile:
+            dbms: mysql
+            encoding: utf8
+            path: /scripts/create-table-bookKeeper.sql
+            relativeToChangelogFile: true
+            splitStatements: true
+            stripComments: true
+  - changeSet:
       id: createTableBook
       author: Aliaksei Beliak
       changes:
@@ -119,17 +130,6 @@ databaseChangeLog:
             dbms: mysql
             encoding: utf8
             path: /scripts/create-table-authorBook.sql
-            relativeToChangelogFile: true
-            splitStatements: true
-            stripComments: true
-  - changeSet:
-      id: createTableBookKeeper
-      author: Aliaksei Beliak
-      changes:
-        - sqlFile:
-            dbms: mysql
-            encoding: utf8
-            path: /scripts/create-table-bookKeeper.sql
             relativeToChangelogFile: true
             splitStatements: true
             stripComments: true

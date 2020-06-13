@@ -14,5 +14,5 @@ import java.util.Optional;
 public interface ReaderRepository extends JpaRepository<Reader, Long> {
     Page<Reader> findAll(Pageable pageable);
     List<Reader> findReadersByPhoto(Photo photo);
-    List<Reader> findReaderByBookKeeperNull();
+    List<Reader> findReaderByBookNull();
 }

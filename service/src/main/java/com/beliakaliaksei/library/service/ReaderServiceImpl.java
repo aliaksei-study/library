@@ -38,7 +38,7 @@ public class ReaderServiceImpl implements IReaderService {
 
     @Override
     public List<Reader> getReadersWithoutBooks() {
-        return readerRepository.findReaderByBookKeeperNull();
+        return readerRepository.findReaderByBookNull();
     }
 
     @Override

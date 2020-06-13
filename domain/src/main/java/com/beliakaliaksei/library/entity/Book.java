@@ -42,11 +42,11 @@ public class Book implements Serializable {
     @Column(name = "genre_id")
     private Genre genre;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = {CascadeType.MERGE})
     @JoinColumn(name = "reader_id")
     private Reader reader;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     @JoinColumn(name = "book_keeper_id")
     private BookKeeper bookKeeper;
 
