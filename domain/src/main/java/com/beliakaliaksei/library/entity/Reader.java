@@ -1,14 +1,10 @@
 package com.beliakaliaksei.library.entity;
 
-import com.beliakaliaksei.library.entity.enumeration.Gender;
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.sql.Date;
 
 @Getter
 @Setter
@@ -31,5 +27,7 @@ public class Reader extends Human implements Serializable {
 
     @OneToOne(mappedBy = "reader")
     @JsonIgnore
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private Book book;
 }

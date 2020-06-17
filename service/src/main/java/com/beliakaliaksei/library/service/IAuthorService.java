@@ -13,5 +13,5 @@ public interface IAuthorService {
     void saveNewAuthor(Author author);
     Author getAuthorById(long id) throws AuthorNotFoundException;
     void updateAuthor(Author updatedAuthor, long id);
-    void deleteAuthors(List<Long> authorIds) throws AuthorNotFoundException;
+    void deleteAuthor(Author author);
 }

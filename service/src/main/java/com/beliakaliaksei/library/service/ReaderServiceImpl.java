@@ -2,6 +2,7 @@ package com.beliakaliaksei.library.service;
 
 import com.beliakaliaksei.library.entity.Photo;
 import com.beliakaliaksei.library.entity.Reader;
+import com.beliakaliaksei.library.exception.ReaderHasBookException;
 import com.beliakaliaksei.library.exception.ReaderNotFoundException;
 import com.beliakaliaksei.library.exception.SuchEmailAlreadyExistsException;
 import com.beliakaliaksei.library.repository.ReaderRepository;
@@ -57,14 +58,14 @@ public class ReaderServiceImpl implements IReaderService {
         long userId;
         Reader savedReader = readerRepository.findById(id).orElseThrow(ReaderNotFoundException::new);
         userId = savedReader.getUser().getId();
-        if(userService.isUserWithSuchEmailAlreadyExistsExcludedCurrentUser(updatedReader.getUser(), userId)){
+        if (userService.isUserWithSuchEmailAlreadyExistsExcludedCurrentUser(updatedReader.getUser(), userId)) {
             throw new SuchEmailAlreadyExistsException();
         }
         updatedReader.getUser().setId(userId);
-        if(!savedReader.getUser().getPassword().equals(updatedReader.getUser().getPassword())) {
+        if (!savedReader.getUser().getPassword().equals(updatedReader.getUser().getPassword())) {
             userService.encryptUserPassword(updatedReader.getUser());
         }
-        if(updatedReader.getPhoto() != null) {
+        if (updatedReader.getPhoto() != null) {
             Photo savedPhoto = photoService.findPhotoByUrlPhoto(updatedReader.getPhoto().getUrlPhoto())
                     .orElseGet(updatedReader::getPhoto);
             updatedReader.setPhoto(savedPhoto);
@@ -80,9 +81,10 @@ public class ReaderServiceImpl implements IReaderService {
     }
 
     @Override
-    public void deleteReaders(List<Long> readerIds) throws ReaderNotFoundException {
+    public void deleteReaders(List<Long> readerIds) throws ReaderNotFoundException, ReaderHasBookException {
         Reader reader;
-        for(long id : readerIds) {
+        isReadersReadingBooks(readerIds);
+        for (long id : readerIds) {
             reader = readerRepository.findById(id).orElseThrow(ReaderNotFoundException::new);
             if((reader.getPhoto().getId() != 1) && (isPhotoHasOneReaderUsage(reader.getPhoto()))) {
                 photoService.deletePhoto(reader.getPhoto());
@@ -100,5 +102,16 @@ public class ReaderServiceImpl implements IReaderService {
 
     public boolean isPhotoHasOneReaderUsage(Photo photo) {
         return readerRepository.findReadersByPhoto(photo).size() == 1;
+    }
+
+    public boolean isReadersReadingBooks(List<Long> readerIds) throws ReaderNotFoundException, ReaderHasBookException {
+        Reader reader;
+        for(long id: readerIds) {
+            reader = readerRepository.findById(id).orElseThrow(ReaderNotFoundException::new);
+            if(reader.getBook() != null) {
+                throw new ReaderHasBookException("Reader with id " + reader.getId() + " reading this book");
+            }
+        }
+        return false;
     }
 }

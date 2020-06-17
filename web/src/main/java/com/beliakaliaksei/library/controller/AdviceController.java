@@ -44,4 +44,11 @@ public class AdviceController {
     String bookNotFoundHandler(BookNotFoundException ex) {
         return ex.getMessage();
     }
+
+    @ResponseBody
+    @ExceptionHandler({ReaderHasBookException.class})
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    String readerHasBookHandler(ReaderHasBookException ex) {
+        return ex.getMessage();
+    }
 }

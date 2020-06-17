@@ -7,7 +7,9 @@ import com.beliakaliaksei.library.dto.PublisherDto;
 import com.beliakaliaksei.library.entity.Author;
 import com.beliakaliaksei.library.entity.Book;
 import com.beliakaliaksei.library.exception.BookNotFoundException;
+import com.beliakaliaksei.library.exception.ReaderNotFoundException;
 import com.beliakaliaksei.library.service.IBookService;
+import com.beliakaliaksei.library.service.IReaderService;
 import com.beliakaliaksei.library.util.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -15,6 +17,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,10 +26,12 @@ import java.util.Optional;
 @RequestMapping("/books")
 public class BookController {
     private final IBookService bookService;
+    private final IReaderService readerService;
 
     @Autowired
-    public BookController(IBookService bookService) {
+    public BookController(IBookService bookService, IReaderService readerService) {
         this.bookService = bookService;
+        this.readerService = readerService;
     }
 
     @GetMapping
@@ -48,5 +53,15 @@ public class BookController {
         List<Author> authors = Mapper.mapAll(bookDto.getAuthorDto(), Author.class);
         book.setAuthors(authors);
         bookService.addNewBook(book);
+    }
+
+    @GetMapping("readers/{id}")
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public List<String> getTitleByReader(@PathVariable("id") List<Long> readerIds) throws ReaderNotFoundException {
+        List<String> titles = new ArrayList<>();
+        for(Long readerId: readerIds) {
+            titles.add(bookService.getBookByReader(readerService.getById(readerId)).getTitle());
+        }
+        return titles;
     }
 }

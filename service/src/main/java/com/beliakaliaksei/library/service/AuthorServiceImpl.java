@@ -16,7 +16,7 @@ import java.util.List;
 
 @Service
 @Transactional
-public class AuthorServiceImpl implements IAuthorService{
+public class AuthorServiceImpl implements IAuthorService {
     private final AuthorRepository authorRepository;
 
     @Autowired
@@ -47,10 +47,7 @@ public class AuthorServiceImpl implements IAuthorService{
     }
 
     @Override
-    public void deleteAuthors(List<Long> authorIds) throws AuthorNotFoundException {
-        for(long authorId : authorIds) {
-            Author author = getAuthorById(authorId);
-            authorRepository.delete(author);
-        }
+    public void deleteAuthor(Author author) {
+        authorRepository.delete(author);
     }
 }

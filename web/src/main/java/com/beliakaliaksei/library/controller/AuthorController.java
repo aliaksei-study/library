@@ -5,6 +5,7 @@ import com.beliakaliaksei.library.entity.Author;
 import com.beliakaliaksei.library.entity.Reader;
 import com.beliakaliaksei.library.exception.AuthorNotFoundException;
 import com.beliakaliaksei.library.service.IAuthorService;
+import com.beliakaliaksei.library.service.IBookService;
 import com.beliakaliaksei.library.util.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -18,11 +19,13 @@ import java.util.List;
 @RestController
 @RequestMapping("/authors")
 public class AuthorController {
+    private final IBookService bookService;
     private final IAuthorService authorService;
 
     @Autowired
-    public AuthorController(IAuthorService authorService) {
+    public AuthorController(IAuthorService authorService, IBookService bookService) {
         this.authorService = authorService;
+        this.bookService = bookService;
     }
 
     @GetMapping
@@ -52,7 +55,11 @@ public class AuthorController {
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public void deleteAuthors(@PathVariable("id") List<Long> authorIds) throws AuthorNotFoundException {
-        authorService.deleteAuthors(authorIds);
+        for(long authorId : authorIds) {
+            Author author = authorService.getAuthorById(authorId);
+            bookService.setDeletedAuthorToNull(bookService.getBooksWhichWereWrittenByDeletedAuthor(author), author);
+            authorService.deleteAuthor(author);
+        }
     }
 
 }

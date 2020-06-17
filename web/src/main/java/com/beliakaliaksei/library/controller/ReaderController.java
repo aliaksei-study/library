@@ -2,6 +2,7 @@ package com.beliakaliaksei.library.controller;
 
 import com.beliakaliaksei.library.dto.ReaderDto;
 import com.beliakaliaksei.library.entity.Reader;
+import com.beliakaliaksei.library.exception.ReaderHasBookException;
 import com.beliakaliaksei.library.exception.ReaderNotFoundException;
 import com.beliakaliaksei.library.exception.SuchEmailAlreadyExistsException;
 import com.beliakaliaksei.library.service.IPhotoService;
@@ -67,7 +68,7 @@ public class ReaderController {
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public void deleteReaders(@PathVariable("id") List<Long> readerIds) throws ReaderNotFoundException {
+    public void deleteReaders(@PathVariable("id") List<Long> readerIds) throws ReaderNotFoundException, ReaderHasBookException {
         readerService.deleteReaders(readerIds);
     }
 }
