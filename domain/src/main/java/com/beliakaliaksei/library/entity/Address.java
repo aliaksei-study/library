@@ -29,5 +29,5 @@ public class Address implements Serializable {
     private String street;
 
     @Column(name = "number_of_street")
-    private short numberOfStreet;
+    private Short numberOfStreet;
 }

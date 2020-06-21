@@ -29,7 +29,7 @@ public class Publisher implements Serializable {
     private Address address;
 
     @Column(name = "postcode")
-    private int postcode;
+    private Integer postcode;
 
     @Column(name = "email")
     private String email;

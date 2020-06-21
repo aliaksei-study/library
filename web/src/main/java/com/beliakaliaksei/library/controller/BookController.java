@@ -48,6 +48,7 @@ public class BookController {
     }
 
     @PostMapping
+    @ResponseStatus(HttpStatus.ACCEPTED)
     public void saveBook(@Valid @RequestBody BookDto bookDto) {
         Book book = Mapper.map(bookDto, Book.class);
         List<Author> authors = Mapper.mapAll(bookDto.getAuthorDto(), Author.class);
@@ -64,4 +65,14 @@ public class BookController {
         }
         return titles;
     }
+
+    @PutMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public void updateBook(@PathVariable("id") Long id, @Valid @RequestBody BookDto bookDto) {
+        Book book = Mapper.map(bookDto, Book.class);
+        List<Author> authors = Mapper.mapAll(bookDto.getAuthorDto(), Author.class);
+        book.setAuthors(authors);
+        bookService.updateBook(book, id);
+    }
+
 }

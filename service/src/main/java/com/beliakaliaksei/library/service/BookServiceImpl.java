@@ -89,4 +89,10 @@ public class BookServiceImpl implements IBookService {
     public Book getBookByReader(Reader reader){
         return bookRepository.findByReader(reader).orElseGet(Book::new);
     }
+
+    @Override
+    public void updateBook(Book book, Long id) {
+        book.setId(id);
+        bookRepository.save(book);
+    }
 }

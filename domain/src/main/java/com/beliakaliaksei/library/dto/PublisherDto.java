@@ -18,7 +18,7 @@ public class PublisherDto {
     private AddressDto addressDto;
     @Min(value = 0, message = "{valid.postcode.min}")
     @Max(1_000_000)
-    private int postcode;
+    private Integer postcode;
     @NullEmailValidator
     private String email;
 }

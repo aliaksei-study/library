@@ -19,5 +19,5 @@ public class AddressDto {
     private String street;
     @Min(value = 0, message = "{valid.numberOfStreet.min}")
     @Max(1_000)
-    private int numberOfStreet;
+    private Integer numberOfStreet;
 }

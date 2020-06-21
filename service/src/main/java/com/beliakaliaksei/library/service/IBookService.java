@@ -20,4 +20,5 @@ public interface IBookService {
     List<Book> getBooksWhichWereWrittenByDeletedAuthor(Author author);
     void setDeletedAuthorToNull(List<Book> books, Author author);
     Book getBookByReader(Reader reader);
+    void updateBook(Book book, Long id);
 }

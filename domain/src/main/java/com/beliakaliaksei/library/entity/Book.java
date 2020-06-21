@@ -36,7 +36,7 @@ public class Book implements Serializable {
     private Date publicationDate;
 
     @Column(name="number_of_copies")
-    private int numberOfCopies;
+    private Integer numberOfCopies;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "genre_id")

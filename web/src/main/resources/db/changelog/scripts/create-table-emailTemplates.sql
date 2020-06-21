@@ -1,4 +1,5 @@
-CREATE TABLE email_templates (
+CREATE TABLE email (
     id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    template VARCHAR(200)
+    subject VARCHAR(100),
+    `text` VARCHAR(200)
 );

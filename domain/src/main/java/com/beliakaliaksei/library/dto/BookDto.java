@@ -25,7 +25,7 @@ public class BookDto {
     private Date publicationDate;
     @Min(value = 0, message = "{valid.numberOfCopies.min}")
     @Max(100_000_000)
-    private int numberOfCopies;
+    private Integer numberOfCopies;
     @Valid
     private List<AuthorDto> authorDto;
     private Genre genre;

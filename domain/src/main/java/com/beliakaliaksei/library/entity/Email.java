@@ -13,13 +13,16 @@ import java.io.Serializable;
 @EqualsAndHashCode
 @ToString
 @Entity
-@Table(name = "email_templates")
-public class EmailTemplates implements Serializable {
+@Table(name = "email")
+public class Email implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "template")
-    private String template;
+    @Column(name = "subject")
+    private String subject;
+
+    @Column(name = "text")
+    private String text;
 }
