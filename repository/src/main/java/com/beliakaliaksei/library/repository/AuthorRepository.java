@@ -12,4 +12,5 @@ import java.util.Optional;
 public interface AuthorRepository extends JpaRepository<Author, Long> {
     Page<Author> findAll(Pageable pageable);
     Optional<Author> findById(Long id);
+    Author findByNote(String note);
 }

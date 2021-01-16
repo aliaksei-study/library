@@ -6,11 +6,15 @@ import com.beliakaliaksei.library.entity.BookKeeper;
 import com.beliakaliaksei.library.entity.Reader;
 import com.beliakaliaksei.library.exception.BookNotFoundException;
 import com.beliakaliaksei.library.exception.ReaderNotFoundException;
+import com.beliakaliaksei.library.filter.SearchCriteria;
+import com.beliakaliaksei.library.filter.bookfilter.BookSpecification;
 import com.beliakaliaksei.library.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -34,9 +38,21 @@ public class BookServiceImpl implements IBookService {
 
 
     @Override
-    public Page<Book> getBookPage(int page, int pageSize) {
-        Pageable pageable = PageRequest.of(page, pageSize);
+    public Page<Book> getBookPage(int page, int pageSize, String sort) {
+        Pageable pageable;
+        if(sort == null) {
+            pageable = PageRequest.of(page, pageSize);
+        } else {
+            pageable = PageRequest.of(page, pageSize, Sort.by(sort));
+        }
+
         return bookRepository.findAll(pageable);
+    }
+
+    @Override
+    public Page<Book> getFilteredBookPage(int page, int pageSize, Specification<Book> bookSpecification) {
+        Pageable pageable = PageRequest.of(page, pageSize);
+        return bookRepository.findAll(bookSpecification, pageable);
     }
 
     @Override

@@ -14,4 +14,5 @@ public interface IAuthorService {
     Author getAuthorById(long id) throws AuthorNotFoundException;
     void updateAuthor(Author updatedAuthor, long id);
     void deleteAuthor(Author author);
+    Author findByNote(String note);
 }

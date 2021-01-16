@@ -7,11 +7,13 @@ import com.beliakaliaksei.library.entity.Reader;
 import com.beliakaliaksei.library.exception.BookNotFoundException;
 import com.beliakaliaksei.library.exception.ReaderNotFoundException;
 import org.springframework.data.domain.Page;
+import org.springframework.data.jpa.domain.Specification;
 
 import java.util.List;
 
 public interface IBookService {
-    Page<Book> getBookPage(int page, int pageSize);
+    Page<Book> getBookPage(int page, int pageSize, String sort);
+    Page<Book> getFilteredBookPage(int page, int pageSize, Specification<Book> bookSpecification);
     void addNewBook(Book book);
     void deleteBook(Book book) throws BookNotFoundException;
     Book getById(long id) throws BookNotFoundException;

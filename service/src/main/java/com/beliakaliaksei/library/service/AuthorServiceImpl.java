@@ -50,4 +50,9 @@ public class AuthorServiceImpl implements IAuthorService {
     public void deleteAuthor(Author author) {
         authorRepository.delete(author);
     }
+
+    @Override
+    public Author findByNote(String note) {
+        return authorRepository.findByNote(note);
+    }
 }
